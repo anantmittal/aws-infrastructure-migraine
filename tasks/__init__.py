@@ -20,28 +20,28 @@ import tasks.terraform_old.instance
 ns = Collection()
 
 # Compose from codebuild
-ns_codebuild = Collection('codebuild')
-compose_collection(ns_codebuild, tasks.codebuild.migraine_flask.ns, name='flask')
-compose_collection(ns, ns_codebuild, name='codebuild')
+ns_codebuild = Collection("codebuild")
+compose_collection(ns_codebuild, tasks.codebuild.migraine_flask.ns, name="flask")
+compose_collection(ns, ns_codebuild, name="codebuild")
 
 # Compose from database.py
-compose_collection(ns, tasks.database.ns, name='database')
-compose_collection(ns.collections['database'], tasks.database_tests.ns, name='tests')
+compose_collection(ns, tasks.database.ns, name="database")
+compose_collection(ns.collections["database"], tasks.database_tests.ns, name="tests")
 
 # Compose from dependencies.py
-compose_collection(ns, tasks.dependencies.ns, name='depend')
+compose_collection(ns, tasks.dependencies.ns, name="depend")
 
 # Compose from helm.py
-compose_collection(ns, tasks.helm.ns, name='helm')
+compose_collection(ns, tasks.helm.ns, name="helm")
 
 # Compose from helmfile.py
-compose_collection(ns, tasks.helmfile.ns, name='helmfile')
+compose_collection(ns, tasks.helmfile.ns, name="helmfile")
 
 #
 # A collection in each of development and production
 #
-ns_dev = Collection('dev')
-ns_prod = Collection('prod')
+ns_dev = Collection("dev")
+ns_prod = Collection("prod")
 
 # # Compose from celery.py
 # compose_collection(
@@ -58,40 +58,40 @@ ns_prod = Collection('prod')
 # Compose from flask.py
 compose_collection(
     ns_dev,
-    tasks.flask.ns.collections['dev'],
-    name='flask',
+    tasks.flask.ns.collections["dev"],
+    name="flask",
 )
 compose_collection(
     ns_prod,
-    tasks.flask.ns.collections['prod'],
-    name='flask',
+    tasks.flask.ns.collections["prod"],
+    name="flask",
 )
 
 # Compose development and production
-compose_collection(ns, ns_dev, name='dev')
-compose_collection(ns, ns_prod, name='prod')
+compose_collection(ns, ns_dev, name="dev")
+compose_collection(ns, ns_prod, name="prod")
 
 #
 # Terraform infrastructure
 #
 
-ns_terraform = Collection('terraform')
+ns_terraform = Collection("terraform")
 
-compose_collection(ns_terraform, tasks.terraform.dns.ns, name='dns')
-compose_collection(ns_terraform, tasks.terraform.ecr.ns, name='ecr')
-compose_collection(ns_terraform, tasks.terraform.eip.ns, name='eip')
-compose_collection(ns_terraform, tasks.terraform.instance.ns, name='instance')
+compose_collection(ns_terraform, tasks.terraform.dns.ns, name="dns")
+compose_collection(ns_terraform, tasks.terraform.ecr.ns, name="ecr")
+compose_collection(ns_terraform, tasks.terraform.eip.ns, name="eip")
+compose_collection(ns_terraform, tasks.terraform.instance.ns, name="instance")
 
-ns.add_collection(ns_terraform, 'terraform')
+ns.add_collection(ns_terraform, "terraform")
 
 #
 # Old Terraform infrastructure
 #
 
-ns_terraform_old = Collection('terraform-old')
+ns_terraform_old = Collection("terraform-old")
 
-compose_collection(ns_terraform_old, tasks.terraform_old.ecr.ns, name='ecr')
-compose_collection(ns_terraform_old, tasks.terraform_old.eip.ns, name='eip')
-compose_collection(ns_terraform_old, tasks.terraform_old.instance.ns, name='instance')
+compose_collection(ns_terraform_old, tasks.terraform_old.ecr.ns, name="ecr")
+compose_collection(ns_terraform_old, tasks.terraform_old.eip.ns, name="eip")
+compose_collection(ns_terraform_old, tasks.terraform_old.instance.ns, name="instance")
 
-ns.add_collection(ns_terraform_old, 'terraform-old')
+ns.add_collection(ns_terraform_old, "terraform-old")

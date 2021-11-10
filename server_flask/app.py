@@ -36,7 +36,7 @@ def create_app():
 
     # Register blue prints.
     # TODO - maybe move blue prints to their own folder if functions explode.
-    app.register_blueprint(users_blueprint, url_prefix='/users')
+    app.register_blueprint(users_blueprint, url_prefix="/users")
 
     return app
 
