@@ -3,6 +3,9 @@ from flask_cors import CORS
 from flask_json import FlaskJSON
 import logging
 import os
+import sys
+
+sys.path.append("/Users/a42/Code/aws-infrastructure-migraine/")
 
 from users import users_blueprint
 
@@ -13,6 +16,8 @@ def create_app():
 
     # For debugging.
     logging.basicConfig(level=logging.DEBUG)
+
+    app.logger.info(sys.path)
 
     flask_environment = os.getenv("FLASK_ENV")
     if flask_environment == "production":
@@ -43,10 +48,10 @@ def create_app():
 
 # Instead of using `flask run`, import the app normally, then run it.
 # Did this because `flask run` was eating an ImportError, not giving a useful error message.
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = create_app()
 
     app.run(
-        host=os.getenv('FLASK_RUN_HOST'),
-        port=os.getenv('FLASK_RUN_PORT'),
+        host=os.getenv("FLASK_RUN_HOST"),
+        port=os.getenv("FLASK_RUN_PORT"),
     )

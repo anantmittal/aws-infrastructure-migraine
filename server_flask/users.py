@@ -10,6 +10,7 @@ import requests.exceptions
 from typing import Dict
 from urllib.parse import urljoin
 
+from server_celery.tasks import add
 
 import migraine_shared.config
 
@@ -17,7 +18,9 @@ import migraine_shared.config
 users_blueprint = Blueprint("users_blueprint", __name__)
 
 
-def _create_session(*, client_config: migraine_shared.config.CouchDBClientConfig) -> requests.Session:
+def _create_session(
+    *, client_config: migraine_shared.config.CouchDBClientConfig
+) -> requests.Session:
     """
     Obtain a session authenticated by the provided config.
     """
@@ -363,3 +366,19 @@ def get_all_users():
         for user in response.json()["rows"]
         if user_name_prefix in user["id"]
     ]
+
+
+@users_blueprint.route("/celery_add", methods=["POST"])
+def celery_add():
+    """
+    Return the list of all user names.
+
+    Body params:
+    {
+        "secret_key": <>
+    }
+
+    TODO: Before reusing code, check on proper REST verbs.
+    """
+    return
+    # add.delay(2, 2)

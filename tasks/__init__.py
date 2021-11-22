@@ -43,12 +43,12 @@ compose_collection(ns, tasks.helmfile.ns, name="helmfile")
 ns_dev = Collection("dev")
 ns_prod = Collection("prod")
 
-# # Compose from celery.py
-# compose_collection(
-#     ns_dev,
-#     tasks.celery.ns.collections['dev'],
-#     name='flask',
-# )
+# Compose from celery.py
+compose_collection(
+    ns_dev,
+    tasks.celery.ns.collections["dev"],
+    name="celery",
+)
 # compose_collection(
 #     ns_prod,
 #     tasks.celery.ns.collections['prod'],
